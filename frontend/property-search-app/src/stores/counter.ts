@@ -18,13 +18,13 @@ export const usePropertyStore = defineStore('property', () => {
   // Search filters
   const selectedRegion = ref<string>('')
   const selectedDistrict = ref<string>('')
-  const selectedPropertyType = ref<string>('')
+  const selectedPropertyTypes = ref<string[]>([])
   const selectedPriceRange = ref<{ min?: number; max?: number }>({})
 
   const searchRequest = computed((): PropertySearchRequest => ({
     region: selectedRegion.value || undefined,
     district: selectedDistrict.value || undefined,
-    propertyType: selectedPropertyType.value || undefined,
+    propertyTypes: selectedPropertyTypes.value.length > 0 ? selectedPropertyTypes.value : undefined,
     minPrice: selectedPriceRange.value.min,
     maxPrice: selectedPriceRange.value.max,
     page: currentPage.value,
@@ -83,7 +83,7 @@ export const usePropertyStore = defineStore('property', () => {
   function resetFilters() {
     selectedRegion.value = ''
     selectedDistrict.value = ''
-    selectedPropertyType.value = ''
+    selectedPropertyTypes.value = []
     selectedPriceRange.value = {}
     currentPage.value = 1
   }
@@ -107,7 +107,7 @@ export const usePropertyStore = defineStore('property', () => {
     error,
     selectedRegion,
     selectedDistrict,
-    selectedPropertyType,
+    selectedPropertyTypes,
     selectedPriceRange,
     
     // Getters

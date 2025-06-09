@@ -3,56 +3,55 @@
     <div class="filters-container">
       <div class="filter-group">
         <label for="region">Region:</label>
-        <select 
-          id="region" 
-          v-model="propertyStore.selectedRegion"
-          @change="onFilterChange"
-        >
-          <option value="">All Regions</option>
-          <option 
-            v-for="region in propertyStore.filterOptions?.regions" 
-            :key="region" 
-            :value="region"
-          >
-            {{ region }}
-          </option>
-        </select>
+        <el-select
+            v-model="propertyStore.selectedRegion"
+            @change="onFilterChange"
+            placeholder="All Regions"
+            clearable
+            style="width: 100%">
+          <el-option label="All Regions" value="" />
+          <el-option
+            v-for="region in propertyStore.filterOptions?.regions"
+            :key="region"
+            :label="region"
+            :value="region" />
+        </el-select>
       </div>
 
       <div class="filter-group">
         <label for="district">District:</label>
-        <select 
-          id="district" 
+        <el-select
           v-model="propertyStore.selectedDistrict"
           @change="onFilterChange"
-        >
-          <option value="">All Districts</option>
-          <option 
-            v-for="district in propertyStore.filterOptions?.districts" 
-            :key="district" 
-            :value="district"
-          >
-            {{ district }}
-          </option>
-        </select>
+          placeholder="All Districts"
+          clearable
+          style="width: 100%">
+          <el-option label="All Districts" value="" />
+          <el-option
+            v-for="district in propertyStore.filterOptions?.districts"
+            :key="district"
+            :label="district"
+            :value="district" />
+        </el-select>
       </div>
 
       <div class="filter-group">
         <label for="propertyType">Property Type:</label>
-        <select 
-          id="propertyType" 
-          v-model="propertyStore.selectedPropertyType"
+        <el-select
+          v-model="propertyStore.selectedPropertyTypes"
           @change="onFilterChange"
-        >
-          <option value="">All Types</option>
-          <option 
-            v-for="type in propertyStore.filterOptions?.propertyTypes" 
-            :key="type" 
-            :value="type"
-          >
-            {{ type }}
-          </option>
-        </select>
+          placeholder="All Types"
+          multiple
+          clearable
+          collapse-tags
+          style="width: 100%">
+          <el-option label="All Types" value="" />
+          <el-option
+            v-for="type in propertyStore.filterOptions?.propertyTypes"
+            :key="type"
+            :label="type"
+            :value="type" />
+        </el-select>
       </div>
 
       <div class="filter-group slider-wrap">

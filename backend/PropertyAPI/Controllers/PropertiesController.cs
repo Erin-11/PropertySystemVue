@@ -32,9 +32,9 @@ namespace PropertyAPI.Controllers
                 query = query.Where(p => p.District == request.District);
             }
 
-            if (!string.IsNullOrEmpty(request.PropertyType))
+            if (request.PropertyTypes != null && request.PropertyTypes.Any())
             {
-                query = query.Where(p => p.PropertyType == request.PropertyType);
+                query = query.Where(p => request.PropertyTypes.Contains(p.PropertyType));
             }
 
             if (request.MinPrice.HasValue)

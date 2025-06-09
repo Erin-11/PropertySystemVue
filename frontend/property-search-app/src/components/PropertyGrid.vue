@@ -155,9 +155,9 @@ const visiblePages = computed(() => {
     cursor: pointer;
   }
 
-.retry-btn:hover {
-  background: #0056b3;
-}
+    .retry-btn:hover {
+      background: #d0103a;
+    }
 
 .empty-state {
   display: flex;
