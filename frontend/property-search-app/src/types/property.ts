@@ -17,6 +17,7 @@ export interface PropertySearchRequest {
   region?: string
   district?: string
   propertyType?: string
+  propertyTypes?: string[]
   minPrice?: number
   maxPrice?: number
   page: number

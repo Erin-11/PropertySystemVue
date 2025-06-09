@@ -38,21 +38,22 @@
       </div>
 
       <div class="filter-group">
-        <label for="propertyType">Property Type:</label>
-        <select 
-          id="propertyType" 
-          v-model="propertyStore.selectedPropertyType"
-          @change="onFilterChange"
-        >
-          <option value="">All Types</option>
-          <option 
+        <label>Property Types:</label>
+        <div class="checkbox-group">
+          <label 
             v-for="type in propertyStore.filterOptions?.propertyTypes" 
             :key="type" 
-            :value="type"
+            class="checkbox-item"
           >
-            {{ type }}
-          </option>
-        </select>
+            <input 
+              type="checkbox" 
+              :value="type"
+              v-model="propertyStore.selectedPropertyTypes"
+              @change="onFilterChange"
+            />
+            <span class="checkbox-label">{{ type }}</span>
+          </label>
+        </div>
       </div>
 
       <div class="filter-group slider-wrap">
@@ -156,6 +157,43 @@ function onReset() {
     border-color: #ed1944;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
   }
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-item:hover {
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
 
 .filter-actions {
   display: flex;
