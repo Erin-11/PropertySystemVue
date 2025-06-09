@@ -55,21 +55,20 @@
         </select>
       </div>
 
-      <div class="filter-group">
+      <div class="filter-group slider-wrap">
         <label for="priceRange">Sale Price:</label>
-        <select 
-          id="priceRange" 
-          @change="onPriceRangeChange"
-        >
-          <option value="">All Prices</option>
-          <option 
-            v-for="range in propertyStore.filterOptions?.priceRanges" 
-            :key="range.label" 
-            :value="JSON.stringify({ min: range.min, max: range.max })"
-          >
-            {{ range.label }}
-          </option>
-        </select>
+        <div class="slider-title">
+           from
+          <div class="slider-value"> {{ priceRange[0] }} </div> to
+          <div class="slider-value"> {{ priceRange[1] }} </div>
+        </div>
+        <el-slider v-model="priceRange"
+                   range
+                   :min="1000000"
+                   :max="100000000"
+                   :show-tooltip="false"
+                   @change="onSliderChange"
+                   class="custom-slider" />
       </div>
 
       <div class="filter-actions">
@@ -93,22 +92,18 @@
 </template>
 
 <script setup lang="ts">
-import { usePropertyStore } from '@/stores/counter'
+  import { ref } from 'vue'
+  import { usePropertyStore } from '@/stores/counter'
 
-const propertyStore = usePropertyStore()
+  const propertyStore = usePropertyStore()
+  const priceRange = ref([1000000, 100000000]);
 
 function onFilterChange() {
   propertyStore.currentPage = 1
 }
 
-function onPriceRangeChange(event: Event) {
-  const target = event.target as HTMLSelectElement
-  if (target.value) {
-    const priceRange = JSON.parse(target.value)
-    propertyStore.setPriceRange(priceRange)
-  } else {
-    propertyStore.setPriceRange({})
-  }
+function onSliderChange(value: number[]) {
+  propertyStore.setPriceRange({ min: value[0], max: value[1] })
 }
 
 function onSearch() {
@@ -166,6 +161,35 @@ function onReset() {
   display: flex;
   gap: 10px;
 }
+
+.slider-wrap {
+  padding: 0px 5px;
+}
+
+  .slider-title {
+      display: flex;
+      font-size: .8em;
+      font-weight: bold;
+  }
+
+  .slider-value {
+    color: #ed1944;
+    font-weight: bold;
+    margin: 0 3px;
+  }
+
+  .custom-slider :deep(.el-slider__bar) {
+    height: 6px;
+    background-color: rgba(237, 25, 68, 1);
+  }
+
+  .custom-slider :deep(.el-slider__button) {
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    background-color: rgba(237, 25, 68, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
 
   .search-btn, .reset-btn {
     flex: 1;
