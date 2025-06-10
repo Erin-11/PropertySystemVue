@@ -10,6 +10,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/propertyDetails/:id',
+      name: 'propertyDetails',
+      component: () => import('../views/PropertyDetails.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

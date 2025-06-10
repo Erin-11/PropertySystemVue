@@ -5,6 +5,10 @@ export interface Property {
   propertyType: string
   salePrice: number
   address: string
+  grossArea: string
+  saleableArea: string
+  yearBuilt: string
+  refNo: string
   description: string
   bedrooms: number
   bathrooms: number
