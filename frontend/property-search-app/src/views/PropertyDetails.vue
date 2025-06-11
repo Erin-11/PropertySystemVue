@@ -25,132 +25,177 @@
           Home
         </span>
         <span> > </span>
-        <span>Property Details</span> 
+        <span>Property Details</span>
       </div>
 
-      <!-- Property Image -->
-      <div class="property-image-section">
-        <img :src="property.imageUrl || '/placeholder-property.jpg'"
-             :alt="property.address"
-             @error="onImageError"
-             class="property-main-image" />
-        <div class="property-type-badge">{{ property.propertyType }}</div>
-
-      </div>
-
-      <!-- Property Information -->
-      <div class="property-info">
-        <div class="property-main-info">
-          <h1 class="property-address">{{ property.address }}</h1>
-          <div class="property-location">
-            <span class="region">{{ property.region }}</span>
-            <span class="separator">•</span>
-            <span class="district">{{ property.district }}</span>
-
-          </div>
-          <div class="property-price">${{ formatPrice(property.salePrice) }}</div>
-
-        </div>
-
-        <!-- Basic Details -->
-        <div class="property-basic-details">
-          <h2>Basic Information</h2>
-          <div class="details-grid">
-            <div class="detail-item">
-              <span class="detail-icon">🛏️</span>
-              <div class="detail-content">
-                <span class="detail-label">Bedrooms</span>
-                <span class="detail-value">{{ property.bedrooms }}</span>
-
-              </div>
-
-            </div>
-            <div class="detail-item">
-              <span class="detail-icon">🚿</span>
-              <div class="detail-content">
-                <span class="detail-label">Bathrooms</span>
-                <span class="detail-value">{{ property.bathrooms }}</span>
-
-              </div>
-
-            </div>
-            <div class="detail-item">
-              <span class="detail-icon">📐</span>
-              <div class="detail-content">
-                <span class="detail-label">Area</span>
-                <span class="detail-value">{{ property.area }} m²</span>
-
-              </div>
-
-            </div>
-
+      <div class="property-main-layout">
+        <div class="left-section">
+          <!-- Property Image -->
+          <div class="property-image-section">
+            <img :src="property.imageUrl || '/placeholder-property.jpg'"
+                 :alt="property.address"
+                 @error="onImageError"
+                 class="property-main-image" />
+            <div class="property-type-badge">{{ property.propertyType }}</div>
           </div>
 
-        </div>
+          <!-- Property Information -->
+          <div class="property-info">
+            <div class="property-main-info">
+              <div class="address-info" @click="openInMap(property.address)">
+                <span class="address-icon">📍</span>
+                <span class="address-text">{{ property.address }}</span>
+              </div>
+              <div class="property-location">
+                <span class="region">{{ property.region }}</span>
+                <span class="separator">•</span>
+                <span class="district">{{ property.district }}</span>
 
-        <!-- Detailed Information -->
-        <div class="property-detailed-info">
-          <h2>Detailed Information</h2>
-          <div class="details-grid">
-            <div class="detail-item">
-              <div class="detail-content">
-                <span class="detail-label">Gross Area</span>
-                <span class="detail-value">{{ property.grossArea || 'N/A' }}</span>
+              </div>
+              <div class="property-price">${{ formatPrice(property.salePrice) }}</div>
+
+            </div>
+
+            <!-- Basic Details -->
+            <div class="property-basic-details">
+              <h2>Basic Information</h2>
+              <div class="details-grid">
+                <div class="detail-item">
+                  <span class="detail-icon">🛏️</span>
+                  <div class="detail-content">
+                    <span class="detail-label">Bedrooms</span>
+                    <span class="detail-value">{{ property.bedrooms }}</span>
+
+                  </div>
+
+                </div>
+                <div class="detail-item">
+                  <span class="detail-icon">🚿</span>
+                  <div class="detail-content">
+                    <span class="detail-label">Bathrooms</span>
+                    <span class="detail-value">{{ property.bathrooms }}</span>
+
+                  </div>
+
+                </div>
+                <div class="detail-item">
+                  <span class="detail-icon">📐</span>
+                  <div class="detail-content">
+                    <span class="detail-label">Area</span>
+                    <span class="detail-value">{{ property.area }} m²</span>
+
+                  </div>
+
+                </div>
 
               </div>
 
             </div>
-            <div class="detail-item">
-              <div class="detail-content">
-                <span class="detail-label">Saleable Area</span>
-                <span class="detail-value">{{ property.saleableArea || 'N/A' }}</span>
+
+            <!-- Detailed Information -->
+            <div class="property-detailed-info">
+              <h2>Detailed Information</h2>
+              <div class="details-grid">
+                <div class="detail-item">
+                  <div class="detail-content">
+                    <span class="detail-label">Gross Area</span>
+                    <span class="detail-value">{{ property.grossArea || 'N/A' }}</span>
+
+                  </div>
+
+                </div>
+                <div class="detail-item">
+                  <div class="detail-content">
+                    <span class="detail-label">Saleable Area</span>
+                    <span class="detail-value">{{ property.saleableArea || 'N/A' }}</span>
+
+                  </div>
+
+                </div>
+                <div class="detail-item">
+                  <div class="detail-content">
+                    <span class="detail-label">Year Built</span>
+                    <span class="detail-value">{{ property.yearBuilt || 'N/A' }}</span>
+
+                  </div>
+
+                </div>
+                <div class="detail-item">
+                  <div class="detail-content">
+                    <span class="detail-label">Reference No</span>
+                    <span class="detail-value">{{ property.refNo || 'N/A' }}</span>
+
+                  </div>
+
+                </div>
 
               </div>
 
             </div>
-            <div class="detail-item">
-              <div class="detail-content">
-                <span class="detail-label">Year Built</span>
-                <span class="detail-value">{{ property.yearBuilt || 'N/A' }}</span>
 
-              </div>
+            <!-- Description -->
+            <div class="property-description-section" v-if="property.description">
+              <h2>Description</h2>
+              <p class="property-description">{{ property.description }}</p>
 
             </div>
-            <div class="detail-item">
-              <div class="detail-content">
-                <span class="detail-label">Reference No</span>
-                <span class="detail-value">{{ property.refNo || 'N/A' }}</span>
+
+            <!-- Listing Information -->
+            <div class="property-listing-info">
+              <h2>Listing Information</h2>
+              <div class="listing-details">
+                <div class="detail-item">
+                  <div class="detail-content">
+                    <span class="detail-label">Listed Date</span>
+                    <span class="detail-value">{{ formatDate(property.listedDate) }}</span>
+
+                  </div>
+
+                </div>
 
               </div>
 
             </div>
 
           </div>
-
         </div>
 
-        <!-- Description -->
-        <div class="property-description-section" v-if="property.description">
-          <h2>Description</h2>
-          <p class="property-description">{{ property.description }}</p>
-
-        </div>
-
-        <!-- Listing Information -->
-        <div class="property-listing-info">
-          <h2>Listing Information</h2>
-          <div class="listing-details">
-            <div class="detail-item">
-              <div class="detail-content">
-                <span class="detail-label">Listed Date</span>
-                <span class="detail-value">{{ formatDate(property.listedDate) }}</span>
-
+        <div class="right-section">
+          <div class="contact-card">
+            <div class="contact-header">
+              <h4>Contact Us</h4>
+              <div class="contact-header-text">
+                For enquiry, please contact Asset Management & Investment Services Division
+                如有垂詢,歡迎賜電資產管理及投資服務部
+              </div>
+            </div>
+            <div>
+              <h3>Enquiry Hotline (查詢熱線) +852 2846 9577</h3>
+              <div class="contact-info">
+                <div class="contact-item">
+                  <strong>Name:</strong> Gigi Yeung (EAA Lic No E-112058)
+                </div>
+                <div class="contact-item">
+                  <strong>Phone:</strong> +852 2846 9572
+                </div>
+                <div class="contact-item">
+                  <strong>Email:</strong> gigi.yeung@hk.knightfrank.com
+                </div>
               </div>
 
+              <div class="contact-info">
+                <div class="contact-item">
+                  <strong>Name:</strong> Ranson Ip (EAA Lic No E-112034)
+                </div>
+                <div class="contact-item">
+                  <strong>Phone:</strong> +852 2846 9573
+                </div>
+                <div class="contact-item">
+                  <strong>Email:</strong> ranson.ip@hk.knightfrank.com
+                </div>
+              </div>
             </div>
-
           </div>
-
         </div>
 
       </div>
@@ -210,6 +255,12 @@
     img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pgo8L3N2Zz4K'
   }
 
+  function openInMap(address: string) {
+    if (!address) return
+    const encodedAddress = encodeURIComponent(address)
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+  }
+
   function goBack() {
     router.push('/')
   }
@@ -218,7 +269,7 @@
 
 <style scoped>
   .property-detail-container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -265,6 +316,70 @@
     color: #dc3545;
   }
 
+  .property-main-layout {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+  }
+
+  .left-section {
+    flex: 2;
+  }
+
+  .right-section {
+    flex: 1;
+  }
+
+  .address-info {
+    font-size: 16px;
+    margin: 10px 0 20px;
+    cursor: pointer;
+  }
+
+    .address-info:hover {
+      color: #ed1944;
+    }
+
+  .adress-icon {
+    margin-right: 8px;
+  }
+
+  .address-text {
+  }
+
+  .contact-card {
+    border: 1px solid #ECECEC;
+    border-radius: 16px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+    .contact-card h4 {
+      margin-top: 0;
+      font-size: 14px;
+      color: #d0103a;
+      font-weight: bold;
+    }
+
+  .contact-header-text {
+    margin-top: 0;
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+
+  .contact-card h3 {
+    font-size: 18px;
+  }
+
+  .contact-info {
+    margin-top: 20px;
+  }
+
+    .contact-info .contact-item {
+      margin-bottom: 5px;
+    }
 
   .retry-btn {
     margin-top: 16px;
@@ -483,8 +598,50 @@
     }
   }
 
+  @media (max-width: 768px) {
+    .property-main-layout {
+      flex-direction: column;
+    }
 
-  @media (max-width: 480px) {
+    .left-section,
+    .right-section {
+      width: 100%;
+    }
+
+    .property-main-image {
+      height: 250px;
+    }
+
+    .property-info {
+      padding: 20px;
+    }
+
+    .property-price {
+      font-size: 24px;
+    }
+
+    .property-address {
+      font-size: 22px;
+    }
+
+    .address-info {
+      font-size: 14px;
+    }
+
+    .details-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .detail-item {
+      padding: 12px;
+    }
+
+    .contact-card {
+      margin-top: 20px;
+    }
+  }
+  /*  @media (max-width: 480px) {
     .property-type-badge {
       top: 10px;
       right: 10px;
@@ -501,5 +658,5 @@
     .property-price {
       font-size: 22px;
     }
-  }
+  }*/
 </style>
