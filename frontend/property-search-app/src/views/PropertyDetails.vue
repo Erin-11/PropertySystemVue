@@ -195,6 +195,57 @@
                 </div>
               </div>
             </div>
+
+            <div class="property-share">
+              <button class="property-share-btn" type="submit" @click.prevent="showShareModal = true">Share Property</button>
+
+              <div v-if="showShareModal" class="modal-overlay" @click.self="showShareModal = false">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3>Share Property</h3>
+                    <button class="close-btn" @click="showShareModal = false">×</button>
+                  </div>
+                  <div class="social-modal-body">
+                    <a class="share-option" @click="generateWeChatQR" href="#">
+                      <img alt="wechat" src="@/assets/icons/icon-wechat.png" />
+                      <span>WeChat</span>
+                    </a>
+                    <a class="share-option" @click="shareToFacebook" href="#">
+                      <img alt="facebook" src="@/assets/icons/icon-facebook.png" />
+                      <span>Facebook</span>
+                    </a>
+                    <a class="share-option" @click="shareToTwitter" href="#">
+                      <img alt="twitter" src="@/assets/icons/icon-twitter.png" />
+                      <span>Twitter</span>
+                    </a>
+                    <a class="share-option" @click="shareToPinterest" href="#">
+                      <img alt="pinterest" src="@/assets/icons/icon-pinterest.webp" />
+                      <span>Pinterest</span>
+                    </a>
+                    <a class="share-option" @click="shareToWhatsapp" href="#">
+                      <img alt="whatsapp" src="@/assets/icons/icon-whatsapp.webp" />
+                      <span>Whatsapp</span>
+                    </a>
+                    <a class="share-option" @click="copyUrl" href="#">
+                      <img alt="Url" src="@/assets/icons/icon-url.webp" />
+                      <span>Url</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div v-if="showWechatQR" class="modal-overlay" @click.self="closeWechatQR">
+                <div class="modal-content qr-modal">
+                  <div class="modal-header">
+                    <h3>Scan to Share</h3>
+                    <button class="close-btn" @click="closeWechatQR">×</button>
+                  </div>
+                  <div class="wechat-modal-body qr-code-container">
+                    <img :src="wechatQRUrl" alt="WeChat QR Code" />
+                    <p>Please scan the code with wechat to share this property</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -204,10 +255,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, computed } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import type { Property } from '@/types/property'
   import { propertyService } from '@/services/propertyService'
+  import QRCode from 'qrcode'
 
   const route = useRoute()
   const router = useRouter()
@@ -257,9 +309,79 @@
 
   function openInMap(address: string) {
     if (!address) return
+
+    if (property.value?.latitude && property.value?.longitude) {
+      const url = `https://www.google.com/maps?q=${property.value.latitude},${property.value.longitude}`
+      window.open(url, '_blank')
+      return
+    }
+
     const encodedAddress = encodeURIComponent(address)
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
   }
+
+  const showShareModal = ref(false)
+  const showWechatQR = ref(false)
+  const wechatQRUrl = ref('')
+  const currentUrl = computed(() => {
+    return `${window.location.origin}/propertyDetails/${property.value?.id}`;
+  });  
+
+  function generateWeChatQR() {
+    QRCode.toDataURL(currentUrl.value)
+      .then(dataUrl => {
+        wechatQRUrl.value = dataUrl
+        showWechatQR.value = true
+      })
+      .catch(err => {
+        console.error('Failed to generate the QR code:', err)
+        alert('Failed to generate the QR code.')
+      })
+  }
+
+  function closeWechatQR() {
+    showWechatQR.value = false
+  }
+
+  function shareToFacebook() {
+    const url = encodeURIComponent(currentUrl.value)
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
+  }
+
+  function shareToTwitter() {
+    const url = encodeURIComponent(currentUrl.value)
+    const text = encodeURIComponent(`Please check out this property: ${property.value?.address}`)
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank')
+  }
+
+  function shareToPinterest() {
+    const media = encodeURIComponent(property.value?.imageUrl || '') 
+    const description = encodeURIComponent(`Property: ${property.value?.address} - Price: $${property.value?.salePrice}`)
+    const url = encodeURIComponent(currentUrl.value)
+
+    if (!media) {
+      alert('This property has no image to share on Pinterest.')
+      return
+    }
+
+    window.open(`https://pinterest.com/pin/create/button/?url=${url}&media=${media}&description=${description}`, '_blank')
+  }
+
+  function shareToWhatsapp() {
+    const text = encodeURIComponent(`I found a great property: ${property.value?.address}\nPrice: $${property.value?.salePrice}\n\n${currentUrl.value}`)
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank')
+  }
+
+  async function copyUrl() {
+    try {
+      await navigator.clipboard.writeText(currentUrl.value);
+      alert('The link has been copied to the clipboard.');
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+      alert('Failed to copy link.Please copy it manually.');
+    }
+  }
+
 
   function goBack() {
     router.push('/')
@@ -269,7 +391,7 @@
 
 <style scoped>
   .property-detail-container {
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -351,7 +473,7 @@
     border: 1px solid #ECECEC;
     border-radius: 16px;
     background: #fff;
-    padding: 20px;
+    padding: 30px 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
@@ -365,7 +487,7 @@
   .contact-header-text {
     margin-top: 0;
     font-size: 14px;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
   }
 
 
@@ -374,12 +496,54 @@
   }
 
   .contact-info {
-    margin-top: 20px;
+    margin-top: 25px;
   }
 
     .contact-info .contact-item {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
+
+  .property-share {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+    .property-share-btn {
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 200px;
+      padding: 12px 20px;
+      background-color: #ed1944;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+      .property-share-btn:hover {
+        background-color: #d0103a;
+      }
+
+  .qr-modal .qr-code-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+    .qr-modal .qr-code-container img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 15px;
+    }
+
+  .qr-modal p {
+    font-size: 14px;
+    color: #666;
+  }
 
   .retry-btn {
     margin-top: 16px;
@@ -640,23 +804,95 @@
     .contact-card {
       margin-top: 20px;
     }
+
   }
-  /*  @media (max-width: 480px) {
-    .property-type-badge {
-      top: 10px;
-      right: 10px;
-      padding: 6px 12px;
-      font-size: 12px;
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background: white;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 10px 0;
+    background-color: #ed1944;
+  }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #fff;
     }
 
+  .close-btn {
+    position: absolute;
+    right: 5px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+  }
+  .social-modal-body {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px 10px;
+  }
+  .wechat-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
 
-    .property-address {
-      font-size: 20px;
+  .share-option {
+    display: inline-block;
+    gap: 10px;
+    padding: 10px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 75px;
+    text-align: center;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+    .share-option:hover,
+    .share-option:active {
+      color: #ed1944;
+      background-color: #fff;
     }
 
-
-    .property-price {
-      font-size: 22px;
+    .share-option img {
+      width: 50px;
+      border: 0;
+      height: auto;
+      vertical-align: middle;
     }
-  }*/
+
+  .share-option span {
+    font-size: 12px;
+    padding-top: 2px;
+  }
 </style>
