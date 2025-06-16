@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnightFrank.DAL", "KnightFrank.DAL\KnightFrank.DAL.csproj", "{8C1F1250-4AC0-4C28-BB73-176915F3B8C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnightFrank.BAL", "KnightFrank.BAL\KnightFrank.BAL.csproj", "{C3C1404A-9170-4FC7-8895-0FFCD69DD8F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnightFrank.AuthServer", "KnightFrank.AuthServer\KnightFrank.AuthServer.csproj", "{D0CF49B9-946A-42DA-838C-55C0B05953FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightFrank.MemfusWongData.Api", "KnightFrank.MemfusWongData.Api\KnightFrank.MemfusWongData.Api.csproj", "{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightFrank.DataAccessLayer.EF", "..\..\data-access-layer-ef\Project\KnightFrank.DataAccessLayer.EF\KnightFrank.DataAccessLayer.EF.csproj", "{4B659F0F-6D09-4502-9435-46BA789943C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C1F1250-4AC0-4C28-BB73-176915F3B8C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C1F1250-4AC0-4C28-BB73-176915F3B8C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C1F1250-4AC0-4C28-BB73-176915F3B8C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C1F1250-4AC0-4C28-BB73-176915F3B8C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C1404A-9170-4FC7-8895-0FFCD69DD8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C1404A-9170-4FC7-8895-0FFCD69DD8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C1404A-9170-4FC7-8895-0FFCD69DD8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C1404A-9170-4FC7-8895-0FFCD69DD8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CF49B9-946A-42DA-838C-55C0B05953FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CF49B9-946A-42DA-838C-55C0B05953FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CF49B9-946A-42DA-838C-55C0B05953FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CF49B9-946A-42DA-838C-55C0B05953FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B659F0F-6D09-4502-9435-46BA789943C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B659F0F-6D09-4502-9435-46BA789943C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B659F0F-6D09-4502-9435-46BA789943C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B659F0F-6D09-4502-9435-46BA789943C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A153EC3D-F3C9-4CC2-B973-D78C7BEB4C9B}
+	EndGlobalSection
+EndGlobal

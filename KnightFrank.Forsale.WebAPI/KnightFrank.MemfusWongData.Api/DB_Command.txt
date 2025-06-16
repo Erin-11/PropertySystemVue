@@ -1,0 +1,4 @@
+﻿ -- Generate Model From Database
+ 
+ --MemfusWongData
+ Scaffold-DbContext "Data Source=main.sql.kf.hk;Initial Catalog=MemfusWongData;user id=dev_user;password=dev#Njem;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Entities\Models\MemfusWongData" -Context MemfusWongDataEntities -ContextDir "." -DataAnnotations -force -NoOnConfiguring 

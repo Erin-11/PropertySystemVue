@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "KnightFrank.BAL": {
+      "commandName": "Project",
+      "sqlDebugging": true,
+      "nativeDebugging": true
+    }
+  }
+}

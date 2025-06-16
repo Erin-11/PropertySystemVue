@@ -1,0 +1,87 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<PackageId>KnightFrank.MemfusWongData.Api</PackageId>
+		<Authors>Knight Frank</Authors>
+		<Product>Knight Frank Memfus Wong Data Api</Product>
+		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+		<Copyright>Copyright © 2023 Knight Frank. All rights reserved.</Copyright>
+		<AssemblyName>KnightFrank.MemfusWongData.WebApi</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Extensions\ScaffoldExtension.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Remove="appsettings.Development.json" />
+		<Content Remove="web.Debug.config" />
+		<Content Remove="web.Release.config" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Images\KF_Logo_Col_en.png" />
+		<None Remove="Images\logo.png" />
+		<None Remove="Templates\ReturnCodeTemplate.html" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Images\KF_Logo_Col_en.png" />
+		<EmbeddedResource Include="Templates\ReturnCodeTemplate.html" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="appsettings.Development.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Include="web.Debug.config" />
+		<None Include="web.Release.config" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DocumentFormat.OpenXml" Version="2.17.1" />
+		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+		<PackageReference Include="KnightFrank.EmailGateway" Version="1.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\KnightFrank.AuthServer\KnightFrank.AuthServer.csproj" />
+		<ProjectReference Include="..\KnightFrank.BAL\KnightFrank.BAL.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Update="appsettings.Production.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
+		<TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+		<TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+		<TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+		<TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+		<TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+		<TypeScriptOutFile />
+		<TypeScriptOutDir />
+		<TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+		<TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+		<TypeScriptSourceMap>True</TypeScriptSourceMap>
+		<TypeScriptMapRoot />
+		<TypeScriptSourceRoot />
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>none</DebugType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants></DefineConstants>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+</Project>

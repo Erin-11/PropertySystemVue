@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "KnightFrank.AuthServer": {
+      "commandName": "Project",
+      "sqlDebugging": true,
+      "nativeDebugging": true
+    }
+  }
+}
