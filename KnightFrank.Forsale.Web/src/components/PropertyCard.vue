@@ -104,7 +104,7 @@
   }
 
   function goDetails() {
-    router.push(`/propertyDetails/${props.property.id}`)
+    router.push(`/propertyDetails/${props.property.propertyId}`)
   }
 
 </script>
