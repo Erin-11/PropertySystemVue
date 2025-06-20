@@ -15,8 +15,7 @@ namespace KnightFrank.DAL.Entities.Models.MemfusWongData
 
         [Key]
         [Column("PropertyID")]
-        public Guid PropertyID { get; set; }
-
+        public int PropertyId { get; set; }
         [Required]
         [StringLength(100)]
         public string Region { get; set; } = string.Empty;

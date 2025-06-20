@@ -27,11 +27,11 @@
             <el-input v-model="form.address" />
           </el-form-item>
         </el-col>
-        <el-col :span="24">
+        <!--<el-col :span="24">
           <el-form-item label="AddressCN" prop="addressTC">
             <el-input v-model="form.addressTC" />
           </el-form-item>
-        </el-col>
+        </el-col>-->
         <el-col :span="12">
           <el-form-item label="GrossArea" prop="grossArea">
             <el-input v-model="form.grossArea" />
@@ -52,11 +52,11 @@
             <el-input v-model="form.refNo" />
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <!--<el-col :span="12">
           <el-form-item label="KF Ref No" prop="kfRefNo">
             <el-input v-model="form.kfRefNo" />
           </el-form-item>
-        </el-col>
+        </el-col>-->
         <el-col :span="12">
           <el-form-item label="Listed Date" prop="listedDate">
             <el-date-picker v-model="form.listedDate" type="date" value-format="YYYY-MM-DD" />
@@ -87,12 +87,12 @@ interface Property {
   propertyType: string;
   salePrice: number;
   address: string;
-  addressTC: string;
+  //addressTC: string;
   grossArea: string;
   saleableArea: string;
   yearBuilt: string;
   refNo: string;
-  kfRefNo: string;
+  //kfRefNo: string;
   listedDate: string;
   imageUrl: string;
 }
@@ -110,12 +110,12 @@ const form = ref<Property>({
   propertyType: '',
   salePrice: 0,
   address: '',
-  addressTC: '',
+  //addressTC: '',
   grossArea: '',
   saleableArea: '',
   yearBuilt: '',
   refNo: '',
-  kfRefNo: '',
+  //kfRefNo: '',
   listedDate: new Date().toISOString().split('T')[0],
   imageUrl: ''
 });
@@ -132,9 +132,9 @@ const rules = {
 
 const save = async () => {
   if (props.selectedProperty?.id) {
-    await propertyService.updateProperty(props.selectedProperty.id, form.value);
+    //await propertyService.updateProperty(props.selectedProperty.id, form.value);
   } else {
-    await propertyService.addProperty(form.value);
+    //await propertyService.addProperty(form.value);
   }
   emit('saved');
 };

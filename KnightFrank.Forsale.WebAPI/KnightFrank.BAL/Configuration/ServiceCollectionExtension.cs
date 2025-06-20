@@ -27,6 +27,9 @@ namespace KnightFrank.BAL.Configuration
             services.AddScoped<IFloorService, FloorService>();
             services.AddScoped<IUnitService, UnitService>();
 
+            services.AddScoped<IPropertyService, PropertyService>();
+
+
             #endregion
 
             return services;

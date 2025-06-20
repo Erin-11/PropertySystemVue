@@ -57,14 +57,14 @@
             </div>
 
             <!-- Basic Details -->
-            <div class="property-basic-details">
+            <div class="property-basic-details" v-if="false">
               <h2>Basic Information</h2>
               <div class="details-grid">
                 <div class="detail-item">
                   <span class="detail-icon">🛏️</span>
                   <div class="detail-content">
                     <span class="detail-label">Bedrooms</span>
-                    <span class="detail-value">{{ property.bedrooms }}</span>
+                    <span class="detail-value"> property.bedrooms </span>
 
                   </div>
 
@@ -73,7 +73,7 @@
                   <span class="detail-icon">🚿</span>
                   <div class="detail-content">
                     <span class="detail-label">Bathrooms</span>
-                    <span class="detail-value">{{ property.bathrooms }}</span>
+                    <span class="detail-value"> property.bathrooms </span>
 
                   </div>
 
@@ -82,7 +82,7 @@
                   <span class="detail-icon">📐</span>
                   <div class="detail-content">
                     <span class="detail-label">Area</span>
-                    <span class="detail-value">{{ property.area }} m²</span>
+                    <span class="detail-value"> property.area  m²</span>
 
                   </div>
 
@@ -134,9 +134,9 @@
             </div>
 
             <!-- Description -->
-            <div class="property-description-section" v-if="property.description">
+            <div class="property-description-section" v-if="false">
               <h2>Description</h2>
-              <p class="property-description">{{ property.description }}</p>
+              <p class="property-description"> property.description </p>
 
             </div>
 
@@ -324,16 +324,16 @@
   const showWechatQR = ref(false)
   const wechatQRUrl = ref('')
   const currentUrl = computed(() => {
-    return `${window.location.origin}/propertyDetails/${property.value?.id}`;
+    return `${window.location.origin}/propertyDetails/${property.value?.propertyId}`;
   });  
 
   function generateWeChatQR() {
     QRCode.toDataURL(currentUrl.value)
-      .then(dataUrl => {
+      .then((dataUrl: string) => {
         wechatQRUrl.value = dataUrl
         showWechatQR.value = true
       })
-      .catch(err => {
+      .catch((err:unknown) => {
         console.error('Failed to generate the QR code:', err)
         alert('Failed to generate the QR code.')
       })

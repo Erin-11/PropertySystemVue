@@ -36,7 +36,7 @@
       <div class="property-grid">
         <PropertyCard 
           v-for="property in propertyStore.properties" 
-          :key="property.id"
+          :key="property.propertyId"
           :property="property"
         />
       </div>

@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnightFrank.AuthServer", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightFrank.MemfusWongData.Api", "KnightFrank.MemfusWongData.Api\KnightFrank.MemfusWongData.Api.csproj", "{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnightFrank.DataAccessLayer.EF", "..\..\data-access-layer-ef\Project\KnightFrank.DataAccessLayer.EF\KnightFrank.DataAccessLayer.EF.csproj", "{4B659F0F-6D09-4502-9435-46BA789943C1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97F0EBBA-0026-4FD2-B62D-362D8311A8A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B659F0F-6D09-4502-9435-46BA789943C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B659F0F-6D09-4502-9435-46BA789943C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B659F0F-6D09-4502-9435-46BA789943C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B659F0F-6D09-4502-9435-46BA789943C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

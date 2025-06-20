@@ -13,6 +13,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="Extensions\ScaffoldExtension.cs" />
+	  <Compile Remove="Startup.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Content Remove="appsettings.Development.json" />
@@ -38,7 +39,6 @@
 	<ItemGroup>
 		<PackageReference Include="DocumentFormat.OpenXml" Version="2.17.1" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-		<PackageReference Include="KnightFrank.EmailGateway" Version="1.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.16" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

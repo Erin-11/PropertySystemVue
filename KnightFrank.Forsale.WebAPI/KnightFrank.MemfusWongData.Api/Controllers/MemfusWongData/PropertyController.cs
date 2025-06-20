@@ -4,9 +4,11 @@ using KnightFrank.MemfusWongData.Api.Requests.MemfusWongData;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace KnightFrank.MemfusWongData.Api.Controllers.MemfusWongData
 {
+    [Route("property")]
     public class PropertyController : BaseController
     {
         private readonly IPropertyService _service;
@@ -17,7 +19,7 @@ namespace KnightFrank.MemfusWongData.Api.Controllers.MemfusWongData
         }
 
         [HttpPost("")]
-        [ProducesResponseType(200, Type = typeof(PagedResult<PropertyDto>))]
+        [ProducesResponseType(200, Type = typeof(PagedResultDto<PropertyDto>))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
@@ -25,7 +27,7 @@ namespace KnightFrank.MemfusWongData.Api.Controllers.MemfusWongData
         [ProducesResponseType(404)]
         public async Task<IActionResult> SearchProperties([FromBody] PropertySearchRequest request)
         {
-            var dtos = await _service.SearchPropertiesAsync(
+            var result = await _service.SearchPropertiesAsync(
                 request.Region, 
                 request.District, 
                 request.PropertyTypes, 

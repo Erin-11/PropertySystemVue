@@ -35,30 +35,18 @@
 import { ref, onMounted } from 'vue';
 import PropertyForm from './PropertyForm.vue';
   import { propertyService }  from '@/services/propertyService';
+  import type { Property } from '@/types/property'
 
-interface Property {
-  id?: number;
-  region: string;
-  district: string;
-  propertyType: string;
-  salePrice: number;
-  address: string;
-  addressTC: string;
-  grossArea: string;
-  saleableArea: string;
-  yearBuilt: string;
-  refNo: string;
-  kfRefNo: string;
-  listedDate: Date;
-  imageUrl: string;
-}
+  interface Props {
+    property: Property
+  }
 
 const properties = ref<Property[]>([]);
 const isFormVisible = ref(false);
 const selectedProperty = ref<Property | null>(null);
 
 const refreshList = async () => {
-  properties.value = await propertyService.getProperties();
+  //properties.value = await propertyService.getProperties();
 };
 
 const showForm = () => {
@@ -73,7 +61,7 @@ const editProperty = (item: Property) => {
 
 const deleteProperty = async (id: number) => {
   try {
-    await propertyService.deleteProperty(id);
+    //await propertyService.deleteProperty(id);
     refreshList();
   } catch (err) {
     alert('Failed to delete property. Please try again.');

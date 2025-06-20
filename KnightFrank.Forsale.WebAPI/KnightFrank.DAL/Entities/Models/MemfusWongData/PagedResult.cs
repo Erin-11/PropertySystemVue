@@ -1,4 +1,10 @@
-namespace PropertyAPI.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KnightFrank.DAL.Entities.Models.MemfusWongData
 {
     public class PagedResult<T>
     {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using KnightFrank.BAL.CoreInterface.MemfusWongData;
 using KnightFrank.BAL.Dtos.MemfusWongData;
 using KnightFrank.BAL.Extensions;
@@ -22,33 +23,31 @@ namespace KnightFrank.BAL.Core.Compass
             => await GetZonesAsync(1, 10);
         public async Task<IEnumerable<ZoneDropdownDto>> GetZonesAsync(int? pageNumber, int? pageSize)
         {
+            IEnumerable<ZoneDropdownDto> data;
             try
             {
-                IEnumerable<Zone> data;
-
-                bool requirePaging = pageNumber.HasValue && pageNumber.Value > 0 && pageSize.HasValue && pageSize.Value > 0;
-                var page = new Page(1, 10);
-
                 var query = Query(e => e.IsActive);
 
                 query.Filter(fZone => fZone.Districts != null && fZone.Districts.Any(anyDistrict => anyDistrict.IsActive && anyDistrict.Locations != null && anyDistrict.Locations.Any(anyLocation => anyLocation.IsActive && anyLocation.PropertyInformations != null && anyLocation.PropertyInformations.Any(anyPropInfo => anyPropInfo.IsActive))));
 
                 query.OrderBy(obQuery => obQuery.OrderBy(obZone => !string.IsNullOrWhiteSpace(obZone.ZoneName) ? obZone.ZoneName : string.Empty));
 
-
+                IQueryable<Zone> qZone;
+                bool requirePaging = pageNumber.HasValue && pageNumber.Value > 0 && pageSize.HasValue && pageSize.Value > 0;
+                //var page = new Page(1, 10);
                 if (requirePaging)
                 {
-                    page = new Page(pageNumber.Value, pageSize.Value);
-                    data = await query.SelectPageAsync(page);
+                    var page = new Page(pageNumber.Value, pageSize.Value);
+                    qZone = await query.AsQueryablePageAsync(page);
                 }
                 else
                 {
-                    data = await query.SelectAsync();
+                    qZone = await query.AsQueryableAsync();
                 }
+                var projectedData = qZone.ProjectTo<ZoneDropdownDto>(Mapper.ConfigurationProvider);
 
-
-                return Mapper.Map<IEnumerable<ZoneDropdownDto>>(data);
-
+                data = projectedData.ToList();
+                return data;
             }
             catch (Exception ex)
             {

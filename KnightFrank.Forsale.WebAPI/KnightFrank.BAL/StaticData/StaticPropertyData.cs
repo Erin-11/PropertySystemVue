@@ -1,31 +1,21 @@
-using System;
-using Microsoft.EntityFrameworkCore;
-using PropertyAPI.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using KnightFrank.DAL.Entities.Models.MemfusWongData;
 
-namespace PropertyAPI.Data
+namespace KnightFrank.BAL.StaticData
 {
-    public class PropertyContext : DbContext
+    public static class StaticPropertyData
     {
-        public PropertyContext(DbContextOptions<PropertyContext> options) : base(options)
+        public static List<Property> GetStaticProperties()
         {
-        }
-
-        public DbSet<Property> Properties { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Property>(entity =>
+            return new List<Property>
             {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.SalePrice).HasColumnType("decimal(18,2)");
-                entity.Property(e => e.Area).HasColumnType("decimal(10,2)");
-            });
-
-            // Seed data
-            modelBuilder.Entity<Property>().HasData(
                 new Property
                 {
-                    Id = 1,
+                    PropertyId = 1,
                     Region = "Hong Kong Island",
                     District = "Chai Wan",
                     PropertyType = "Residential (HOS)",
@@ -44,12 +34,12 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 2,
+                    PropertyId = 2,
                     Region = "New Territories",
                     District = "Fanling",
                     PropertyType = "Village",
                     SalePrice = 9950000,
-                    Address = "\tDD 85, Lot No. 579, Section D, G/F, 1/F,2/F & Roof/F, Sub-section 1 of Section C of Lot No.583 In D D 85, 63 Lau Shui Heung, Fanling, New Territories",
+                    Address = "DD 85, Lot No. 579, Section D, G/F, 1/F,2/F & Roof/F, Sub-section 1 of Section C of Lot No.583 In D D 85, 63 Lau Shui Heung, Fanling, New Territories",
                     GrossArea = "",
                     SaleableArea = "2,100 sq ft",
                     YearBuilt = "",
@@ -63,7 +53,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 3,
+                    PropertyId = 3,
                     Region = "Kowloon",
                     District = "Sham Shui Po",
                     PropertyType = "Commercial",
@@ -82,7 +72,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 4,
+                    PropertyId = 4,
                     Region = "Kowloon",
                     District = "Mong Kok",
                     PropertyType = "Commercial",
@@ -101,7 +91,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 5,
+                    PropertyId = 5,
                     Region = "Kowloon",
                     District = "Kwun Tong",
                     PropertyType = "Office",
@@ -117,11 +107,11 @@ namespace PropertyAPI.Data
                     Area = 78.0m,
                     ListedDate = DateTime.Now,
                     ImageUrl = "https://ftp.knightfrank.com.hk/amis_pdf/photo/CRM1172.JPG"
-                    
+
                 },
                 new Property
                 {
-                    Id = 6,
+                    PropertyId = 6,
                     Region = "New Territories",
                     District = "Tsuen Wan",
                     PropertyType = "Industrial",
@@ -140,7 +130,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 7,
+                    PropertyId = 7,
                     Region = "New Territories",
                     District = "Tin Shui Wai",
                     PropertyType = "Residential",
@@ -159,7 +149,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 8,
+                    PropertyId = 8,
                     Region = "New Territories",
                     District = "Kwai Chung",
                     PropertyType = "Residential",
@@ -178,7 +168,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 9,
+                    PropertyId = 9,
                     Region = "Kowloon",
                     District = "Tsim Sha Tsui",
                     PropertyType = "Commercial",
@@ -197,7 +187,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 10,
+                    PropertyId = 10,
                     Region = "New Territories",
                     District = "Yuen Long",
                     PropertyType = "Residential",
@@ -216,7 +206,7 @@ namespace PropertyAPI.Data
                 },
                 new Property
                 {
-                    Id = 11,
+                    PropertyId = 11,
                     Region = "North",
                     District = "Downtown",
                     PropertyType = "Apartment",
@@ -233,7 +223,7 @@ namespace PropertyAPI.Data
                     ListedDate = DateTime.Now.AddDays(-30),
                     ImageUrl = "https://via.placeholder.com/300x200"
                 }
-            );
+            };
         }
     }
 }

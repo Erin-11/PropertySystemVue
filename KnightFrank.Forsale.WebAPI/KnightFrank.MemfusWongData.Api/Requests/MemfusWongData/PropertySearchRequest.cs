@@ -1,4 +1,9 @@
-namespace PropertyAPI.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace KnightFrank.MemfusWongData.Api.Requests.MemfusWongData
 {
     public class PropertySearchRequest
     {
@@ -8,6 +13,6 @@ namespace PropertyAPI.Models
         public decimal? MinPrice { get; set; }
         public decimal? MaxPrice { get; set; }
         public int Page { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; } = 9;
     }
 }
